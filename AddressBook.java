@@ -12,7 +12,7 @@ public class AddressBook {
 		private long phone;
         
 		public AddressBook(String firstName, String lastName, String email, String city, String state, 
-				long zip, long phone) {
+				String gmail, long zip, long phone) {
 			
 			
 			this.firstName = firstName;
@@ -82,7 +82,6 @@ public class AddressBook {
 		
 		public void printcontact() {
 			
-			System.out.println("new contact is added succesfully\n");
 	    	System.out.println("Name: " +firstName+" "+lastName);
 			System.out.println("Phone: " +phone);
 			System.out.println("City: "+city);
@@ -94,7 +93,30 @@ public class AddressBook {
 	public static void main(String[] args) {
 		
 		System.out.println("welcome to address book problem");
-		AddressBook addressBook = new AddressBook("sumit", "rajegore", "sumit@gmail.com", "nanded", "maharashtra", 431605, 9822654119l);
+		AddressBook addressBook = new AddressBook("sumit", "rajegore", "sumit@gmail.com", "nanded", "maharashtra", "nanded", 431605, 9822654119l);
 		addressBook.printcontact();
+		System.out.println("\nwe are Adding one more contact to our address book.\n");
+	    Scanner stdin = new Scanner(System.in);
+	    	        System.out.print("Enter First name: ");
+			    	String firstName = stdin.next();
+	        		System.out.print("Enter Last name: ");
+		    		String lastName = stdin.next();
+		    		stdin.nextLine();
+			    	System.out.print("Enter City name: ");
+			    	String city = stdin.next();
+			    	System.out.print("Enter gmail id : ");
+			    	String email = stdin.next();
+			    	System.out.print("Enter State name: ");
+			    	String state = stdin.next();
+			    	System.out.print("Enter Phone number: ");
+			    	long phone = stdin.nextLong();
+				    System.out.print("Enter Zip Code: ");
+		    		long zip = stdin.nextLong();
+		    		AddressBook addressBook1 = new AddressBook(firstName, lastName, city, state, email, state, phone, zip);
+		    		System.out.println(" ");
+		    		addressBook.printcontact();
+		    		System.out.println(" ");
+		    		addressBook1.printcontact();
+					System.out.println("\ntwo contact is added succesfully\n");
 	}
 }
