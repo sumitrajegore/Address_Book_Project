@@ -7,4 +7,10 @@ public interface AddressBookManagerInterface {
 
 	public void openAddressBook();
 
+	public void searchPerson();
+
+	public void countPerson();
+
+	public void sortPersonContact();
+
 }

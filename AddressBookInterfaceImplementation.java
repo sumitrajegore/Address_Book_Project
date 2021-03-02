@@ -1,20 +1,25 @@
 package addressBookFellowship;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AddressBookInterfaceImplementation implements AddressBookInterface {
 
 	// Array List and Hash Map with List Declaration to store AddressBooks with
 	// respect to person details
-	ArrayList<ContactPerson> personDataArray = new ArrayList<ContactPerson>();
+	List<ContactPerson> personDataArray = new ArrayList<ContactPerson>();
 	Map<String, List<ContactPerson>> personMap = new HashMap<>();
 
+	// Method To Add Person Details
 	public void addPerson() {
-
 		Scanner data = new Scanner(System.in);
 		System.out.println("Enter First Name");
 		String firstName = data.nextLine();
@@ -32,10 +37,17 @@ public class AddressBookInterfaceImplementation implements AddressBookInterface 
 		String email = data.nextLine();
 		ContactPerson p = new ContactPerson(firstName, lastName, phone, city, state, zip, email);
 		personDataArray.add(p);
+		FindDuplicatePersonInAddressBook();
 		System.out.println("Person Array " + personDataArray);
 		System.out.println("Enter Address Book Name to save Person Details");
 		String addressBookName = data.nextLine();
-		personMap.put(addressBookName, personDataArray);
+		boolean keyPresent = personMap.containsKey(addressBookName);
+		if (keyPresent) {
+			personMap.put(addressBookName, personDataArray);
+			System.out.println("*****Person Details Saved Successfully*****");
+		} else {
+			System.out.println(addressBookName + " does not exists");
+		}
 	}
 
 	// Method to edit Person details
@@ -164,6 +176,106 @@ public class AddressBookInterfaceImplementation implements AddressBookInterface 
 			default:
 				System.out.println("Invalid Entry");
 				break;
+			}
+		}
+	}
+
+	// Method to check and remove if person details are repeated
+	public void FindDuplicatePersonInAddressBook() {
+		Set<String> items = new HashSet<>();
+		Set<ContactPerson> items1 = personDataArray.stream().filter(n -> !items.add(n.firstName))
+				.collect(Collectors.toSet());
+		for (ContactPerson p : items1) {
+			System.out.println(p.firstName + " is Duplicate entry cannot add to Address Book");
+			personDataArray.remove(p);
+		}
+	}
+
+	// Method to search and view person in a city
+	public void SearchPersonInACity(String city) {
+		for (Entry<String, List<ContactPerson>> entry : personMap.entrySet()) {
+			List<ContactPerson> list = personDataArray.stream().filter(p -> p.getCity().equals(city))
+					.collect(Collectors.toList());
+			System.out.println("Address Book : " + entry.getKey());
+			for (ContactPerson p : list) {
+				System.out.println(p.firstName);
+			}
+		}
+	}
+
+	// Method to search and view person in a state
+	public void SearchPersonInAState(String state) {
+		for (Entry<String, List<ContactPerson>> entry : personMap.entrySet()) {
+			List<ContactPerson> list = personDataArray.stream().filter(p -> p.getState().equals(state))
+					.collect(Collectors.toList());
+			System.out.println("Address Book : " + entry.getKey());
+			for (ContactPerson p : list) {
+				System.out.println(p.firstName);
+			}
+		}
+	}
+
+	// Method to count person in a city
+	public void countByCity(String city) {
+		for (Map.Entry<String, List<ContactPerson>> entry : personMap.entrySet()) {
+			int list = Math.toIntExact(personDataArray.stream().filter(p -> p.getCity().equals(city)).count());
+			System.out.println("Person Count In This City Is : " + list);
+		}
+	}
+
+	// Method to count person in a state
+	public void countByState(String state) {
+		for (Map.Entry<String, List<ContactPerson>> entry : personMap.entrySet()) {
+			System.out.println("Address Book : " + entry.getKey());
+			int list = Math.toIntExact(personDataArray.stream().filter(p -> p.getCity().equals(state)).count());
+			System.out.println("Person Count In This City Is : " + list);
+		}
+	}
+
+	// Method to sort person in address book alphabetically
+	public void SortPersonContactInAlphabeticalOrder() {
+		for (Map.Entry<String, List<ContactPerson>> entry : personMap.entrySet()) {
+			System.out.println("Address Book : " + entry.getKey());
+			List<ContactPerson> list = personDataArray.stream()
+					.sorted(Comparator.comparing(ContactPerson::getFirstName)).collect(Collectors.toList());
+			for (ContactPerson p : list) {
+				System.out.println(p.firstName);
+			}
+		}
+	}
+
+	// Method to sort person in address book by city
+	public void SortPersonContactByCity() {
+		for (Map.Entry<String, List<ContactPerson>> entry : personMap.entrySet()) {
+			System.out.println("Address Book : " + entry.getKey());
+			List<ContactPerson> list = personDataArray.stream().sorted(Comparator.comparing(ContactPerson::getCity))
+					.collect(Collectors.toList());
+			for (ContactPerson p : list) {
+				System.out.println("City:" + p.city + "  PersonName:" + p.firstName);
+			}
+		}
+	}
+
+	// Method to sort person in address book by state
+	public void SortPersonContactByState() {
+		for (Map.Entry<String, List<ContactPerson>> entry : personMap.entrySet()) {
+			System.out.println("Address Book : " + entry.getKey());
+			List<ContactPerson> list = personDataArray.stream().sorted(Comparator.comparing(ContactPerson::getState))
+					.collect(Collectors.toList());
+			for (ContactPerson p : list) {
+				System.out.println("City:" + p.state + "  PersonName:" + p.firstName);
+			}
+		}
+	}
+
+	// Method to sort person in address book by zip
+	public void SortPersonContactByZip() {
+		for (Map.Entry<String, List<ContactPerson>> entry : personMap.entrySet()) {
+			System.out.println("Address Book : " + entry.getKey());
+			List<ContactPerson> list = personDataArray.stream().sorted(Comparator.comparing(ContactPerson::getZip))
+					.collect(Collectors.toList());
+			for (ContactPerson p : list) {
+				System.out.println("City:" + p.zip + "  PersonName:" + p.firstName);
 			}
 		}
 	}

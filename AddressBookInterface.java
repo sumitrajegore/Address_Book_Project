@@ -10,4 +10,22 @@ public interface AddressBookInterface {
 	public void deletePerson();
 
 	public void displayPerson();
+
+	public void FindDuplicatePersonInAddressBook();
+
+	public void SearchPersonInACity(String city);
+
+	public void SearchPersonInAState(String state);
+
+	public void countByCity(String city);
+
+	public void countByState(String state);
+	
+	public void SortPersonContactInAlphabeticalOrder();
+	
+	public void SortPersonContactByCity();
+	
+	public void SortPersonContactByState();
+	
+	public void SortPersonContactByZip();
 }
