@@ -1,49 +1,49 @@
 package addressBookFellowship;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class AddressBookMainClass {
 	
-	public enum IOService {
-		
-		CONSOLE_IO,FILE_IO,DB_IO,REST_IO;
-	}
-	private List<ContactPerson> emppayrollList;
+ private static final String SAMPLE_CSV_FILE_PATH = "F:\\Users\\sumit\\eclipse-workspace\\Assignments\\src\\addressBookFellowship\\persondata.csv";
 	
-	public AddressBookMainClass(List <ContactPerson> emppayrollList) {
+	public static void  main(String[] args)  {
+		
+		 String nextRecord = "";
 
-		this.emppayrollList = emppayrollList;
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(SAMPLE_CSV_FILE_PATH));
+			
+			while((nextRecord = reader.readLine()) != null) {
+				
+				String[] nextValue = nextRecord.split(",");
+				
+				//print one person data in single line
+				//System.out.println(" name : " + nextValue[0] +" email : " + nextValue[1] +" phone : " + nextValue[2] +" country : " + nextValue[3]);
+				
+				//print one person data in four line
+				System.out.println(" firstname : " + nextValue[0]);
+				System.out.println(" lastname : " + nextValue[1]);
+				System.out.println(" mob no : " + nextValue[2]);
+				System.out.println(" city : " + nextValue[3]);
+				System.out.println(" state : " + nextValue[4]);
+				System.out.println(" zip : " + nextValue[5]);
+				System.out.println(" email : " + nextValue[6]);
+				System.out.println("  ");
+
+				//break;
+				
+				//print data like in csv files
+				//System.out.println(nextRecord);
+				}			
+		} catch  (FileNotFoundException e) {
+			
+			e.printStackTrace();
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
-	public static void main(String[] args) {
-		
-		ArrayList <ContactPerson> emppayrollList =  new ArrayList<>();
-		AddressBookMainClass empPayrollServise = new AddressBookMainClass(emppayrollList);
-		Scanner consoleInputReader = new Scanner(System.in);
-		empPayrollServise.readEmpPayrollData(consoleInputReader);
-		empPayrollServise.writeEmpPayrollData();
-	}
-	private void readEmpPayrollData(Scanner consoleInputReader) {	
-		
-        System.out.println("Enter Employee firstname: ");
-        String firstName = consoleInputReader.nextLine();
-        System.out.println("Enter Employee lastname: ");
-        String laastName = consoleInputReader.nextLine();
-        System.out.println("Enter Employee mob no :");
-        String phone = consoleInputReader.nextLine();
-        System.out.println("Enter Employee city: ");
-        String city = consoleInputReader.nextLine();
-        System.out.println("Enter Employee state: ");
-        String state = consoleInputReader.nextLine();
-        System.out.println("Enter Employee zip:");
-        String zip = consoleInputReader.nextLine();
-        System.out.println("Enter Employee email: ");
-        String email = consoleInputReader.nextLine();
-        
-        emppayrollList.add(new ContactPerson(firstName, laastName, phone, city, state, zip, email));
-    }
-    private void writeEmpPayrollData() {
-    	
-        System.out.println("\nWriting Employee Payroll Roaster to Console...\n" + emppayrollList);
-    }
 }
