@@ -1,20 +1,20 @@
 package addressBookFellowship;
 
-//UC1-Contact Person Pojo class 
 public class ContactPerson {
 
 	String firstName;
-	String lastName;
+	String laastName;
 	String phone;
 	String city;
 	String state;
 	String zip;
 	String email;
 
-	public ContactPerson(String firstName, String lastName, String phone, String city, String state, String zip,
+	public ContactPerson(String firstName, String laastName, String phone, String city, String state, String zip,
 			String email) {
+		
 		this.firstName = firstName;
-		this.lastName = lastName;
+		this.laastName = laastName;
 		this.phone = phone;
 		this.city = city;
 		this.state = state;
@@ -32,11 +32,11 @@ public class ContactPerson {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return laastName;
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.laastName = lastName;
 	}
 
 	public String getPhone() {
@@ -80,7 +80,7 @@ public class ContactPerson {
 	}
 
 	public String toString() {
-		return "ContactPerson [firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone + ", city="
+		return "ContactPerson [firstName=" + firstName + ", lastName=" + laastName + ", phone=" + phone + ", city="
 				+ city + ", state=" + state + ", zip=" + zip + ", email=" + email + "]";
 	}
 }
