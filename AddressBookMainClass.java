@@ -1,49 +1,80 @@
 package addressBookFellowship;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddressBookMainClass {
-	
- private static final String SAMPLE_CSV_FILE_PATH = "F:\\Users\\sumit\\eclipse-workspace\\Assignments\\src\\addressBookFellowship\\persondata.csv";
-	
-	public static void  main(String[] args)  {
+
+	public static void main(String[] args) {
 		
-		 String nextRecord = "";
-
+		String FilePath = "F:\\Users\\sumit\\eclipse-workspace\\Assignments\\src\\addressBookFellowship\\Write.csv";
+		Write(FilePath);
+		System.out.print(FilePath);
+	}
+	public static void Write(String filePath) {
+		
+		List<ContactPerson> employeelist = new ArrayList<ContactPerson>();
+		
+		ContactPerson emp2 = new ContactPerson();
+		emp2.setFirstName("samadh");
+		emp2.setLaastName("rajeg");
+		emp2.setPhone(9822654118L);
+		emp2.setCity("nandednhf");
+		emp2.setState("maharashtratgf");
+		emp2.setZip(431604654);
+		emp2.setEmail("sumitrajegore@gmail.com");		employeelist.add(emp2);
+		
+		ContactPerson emp1 = new ContactPerson();
+	    emp1.setFirstName("sama");
+		emp1.setLaastName("raje");
+		emp1.setPhone(9822654119L);
+		emp1.setCity("nanded");
+		emp1.setState("maharashtra");
+		emp1.setZip(431604);
+		emp1.setEmail("sumitrajegore111@gmail.com");
+		employeelist.add(emp1);
+		
+		
+		
+		FileWriter filewriter = null;
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(SAMPLE_CSV_FILE_PATH));
-			
-			while((nextRecord = reader.readLine()) != null) {
+			filewriter = new FileWriter(filePath);
+			filewriter.append("firstname,lastname,phone,city,state,zip,email");
+			filewriter.append("\n");
+			   
+			for (ContactPerson employee : employeelist ) {
 				
-				String[] nextValue = nextRecord.split(",");
-				
-				//print one person data in single line
-				//System.out.println(" name : " + nextValue[0] +" email : " + nextValue[1] +" phone : " + nextValue[2] +" country : " + nextValue[3]);
-				
-				//print one person data in four line
-				System.out.println(" firstname : " + nextValue[0]);
-				System.out.println(" lastname : " + nextValue[1]);
-				System.out.println(" mob no : " + nextValue[2]);
-				System.out.println(" city : " + nextValue[3]);
-				System.out.println(" state : " + nextValue[4]);
-				System.out.println(" zip : " + nextValue[5]);
-				System.out.println(" email : " + nextValue[6]);
-				System.out.println("  ");
+				filewriter.append(String.valueOf(ContactPerson.getFirstName()));
+				filewriter.append(",");
+				filewriter.append(ContactPerson.getLaastName());
+				filewriter.append(",");
+				filewriter.append(String.valueOf(ContactPerson.getPhone()));
+				filewriter.append(",");
+				filewriter.append(ContactPerson.getCity());
+				filewriter.append(",");
+				filewriter.append(ContactPerson.getState());
+				filewriter.append(",");
+				filewriter.append(String.valueOf(ContactPerson.getZip()));
+				filewriter.append(",");
+				filewriter.append(ContactPerson.getEmail());
+				filewriter.append("\n");
 
-				//break;
+		    }
+			
+  		} catch (Exception e) { 
+  			
+  			e.printStackTrace();
+			
+		} finally {
+			
+			try {
 				
-				//print data like in csv files
-				//System.out.println(nextRecord);
-				}			
-		} catch  (FileNotFoundException e) {
-			
-			e.printStackTrace();
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
+				filewriter.flush();
+				filewriter.close();
+			} catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+		}		
 	}
 }
